@@ -1,5 +1,14 @@
 from collections import Counter
+import sqlite3
+if __name__ == "__main__":
 
+
+    sqlite_con = sqlite3.connect(":memory:")
+    cursor = sqlite_con.cursor()
+    cursor.execute('''CREATE TABLE ksiazki (tytul data_type STRING, 
+                          autor data_type STRING,  
+                          rok data_type INTEGER
+                          );''')
 class Ksiazka():
     def __init__(self, tytul, autor):
         self.tytul = tytul
@@ -9,16 +18,34 @@ class Ksiazka():
 
 
 
-#liczba_ksiazek = int(input())
+liczba_ksiazek = int(input('podaj liczbe egzemplarzy: '))
 lista_ksiazek = []
-egzemplarz = input()
-tupla = eval(egzemplarz)
-lista_ksiazek.append(Ksiazka(tupla[0],tupla[1]))
-lista_ksiazek[0].ilosc+=1
-lista_ksiazek.append(Ksiazka(tupla[0],tupla[1]))
-lista_ksiazek[0].ilosc+=1
-print(lista_ksiazek[0].tytul)
-print(lista_ksiazek[0].ilosc)
+for i in range(liczba_ksiazek):
+    egzemplarz = input('podaj tytul autora i rok: ')
+    #nawiasy = (f'"{egzemplarz}"')
+    tupla = eval(egzemplarz)
+    lista_ksiazek.append(Ksiazka(tupla[0],tupla[1]))
+    tytul_do_sql = tupla[0]
+    print(tytul_do_sql)
+    autor_do_sql = tupla[1]
+    print(autor_do_sql)
+    rok_do_sql = tupla[2]
+    print(rok_do_sql)
+    #query = f"INSERT INTO ksiazki (tytul,autor,rok) VALUES({tytul_do_sql},{autor_do_sql},{rok_do_sql})"
+    query = f"INSERT INTO ksiazki(tytul,autor,rok) VALUES('Chatka puchatka','alan alexander',2005)"
+    cursor.execute(query)
+    #lista_ksiazek[i].ilosc+=1
+    #lista_ksiazek.append(Ksiazka(tupla[0],tupla[1]))
+    #lista_ksiazek[0].ilosc+=1
+    #print(lista_ksiazek[i].tytul)
+    #print(lista_ksiazek[i].ilosc)
+query_select = f"select * from ksiazki"
+cursor.execute(query_select)
+result = cursor.fetchall()
+print(result)
+# for ksiazka in lista_ksiazek:
+#     print(ksiazka.tytul,ksiazka.ilosc)
+# print(lista_ksiazek.count("Chatka Puchatka"))
 
 
 
