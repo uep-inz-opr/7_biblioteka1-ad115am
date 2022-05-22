@@ -15,10 +15,10 @@ class Ksiazka():
 
     ilosc = 0
 
-liczba_ksiazek = int(input('podaj liczbe egzemplarzy: '))
+liczba_ksiazek = int(input())
 lista_ksiazek = []
 for i in range(liczba_ksiazek):
-    egzemplarz = input('podaj tytul autora i rok: ')
+    egzemplarz = input()
     tupla = eval(egzemplarz)
     lista_ksiazek.append(Ksiazka(tupla[0],tupla[1]))
     tytul_do_sql = tupla[0]
